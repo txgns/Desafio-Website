@@ -1,0 +1,3 @@
+﻿Este diretório deve conter:
+logo.png (149x40 px)
+background.png (1450x65 px)

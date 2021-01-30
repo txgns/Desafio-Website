@@ -1,0 +1,42 @@
+<% data = Time.now.strftime('%d-%m-%y') %>
+<% hora = Time.now.strftime('%Hh%Mmin') %>
+
+##YAML Template
+default: --no-source --color -f pretty -p prints
+
+# Reports
+html: >
+  --no-source --color -f pretty
+  -f Cucumber::Formatter::MyHtml -o results/reports/<%= data %>/<%= hora %>/report.html
+  -p report
+
+html-chrome: >
+  --no-source --color -f pretty
+  -f Cucumber::Formatter::MyHtml -o results/reports/<%= data %>/<%= hora %>/report.html
+  -p report
+  BROWSER=chrome
+
+html-firefox: >
+  --no-source --color -f pretty
+  -f Cucumber::Formatter::MyHtml -o results/reports/<%= data %>/<%= hora %>/report.html
+  -p report
+  BROWSER=firefox
+
+# Environments
+# Não Utilizar Espaços no Título do Relatório
+prints: SCREENSHOT_PATH=results/prints/<%= data %>/<%= hora %>/
+report: >
+  REPORT_TITLE=Relatório_Customizado
+  REPORT_PATH=results/reports/<%= data %>/<%= hora %>/
+  SCREENSHOT_PATH=results/reports/<%= data %>/<%= hora %>/prints/
+
+# Browsers
+chrome: >
+  --no-source --color -f pretty
+  -p prints
+  BROWSER=chrome
+
+firefox: >
+  --no-source --color -f pretty
+  -p prints
+  BROWSER=firefox
