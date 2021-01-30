@@ -143,48 +143,6 @@ def embed_print(print)
     embed(print[0], "image/png", print[1])
 end
 
-# $img = []
-def percorre_lista(lista=$automacao.painel.elements(:css => '.rtLI', visible:true).clone , submenu=[])
-    for item in lista
-        submenu.each do |aux|
-            aux.element(:css => '.rtPlus', visible:true).click unless aux.element(:css => '.rtMinus', visible:true).present?
-            break if item.present?
-        end unless item.present?
-
-        item.element(:css => '.rtIn').hover
-        item.element(:css => '.rtIn').click (:control)
-
-        if $automacao.painel.driver.window_handles.size > 1
-            # unless $img.empty?
-            #     img = "#{($img.join("__")).upcase}--#{((((item.element(:css => '.rtIn').text).downcase).strip).gsub(" ","_")).gsub("_-_","-")}"
-            # else
-            #     img = "#{((((item.element(:css => '.rtIn').text).downcase).strip).gsub(" ","_")).gsub("_-_","-")}"
-            # end
-            $automacao.painel.driver.switch_to.window($automacao.painel.driver.window_handles.last)
-            sleep(1)
-            # @automacao.painel.screenshot.save("imagens/#{img.gsub("/","_")}.png")
-            $automacao.painel.window.close
-            $automacao.painel.driver.switch_to.window($automacao.painel.driver.window_handles.last)
-        end
-
-        if item.element(:css => '.rtPlus', visible:true).present? and !item.element(:css => '.rtMinus', visible:true).present?
-            # $img<<(((item.element(:css => '.rtIn').text).strip).gsub(" ","_")).gsub("_-_","-")
-            item.element(:css => '.rtPlus', visible:true).click
-            percorre_lista(item.elements(:css => '.rtLI', visible:true), submenu << item)
-        end
-
-        if item == submenu.last
-            # $img.pop
-            submenu.pop
-            submenu.each do |aux|
-                aux.element(:css => '.rtPlus', visible:true).click unless aux.element(:css => '.rtMinus', visible:true).present?
-                break if item.present?
-            end unless item.present?
-            item.element(:css => '.rtMinus', visible:true).click if item.element(:css => '.rtMinus', visible:true).present?
-        end
-    end
-end
-
 def abrir_tag(html, *tags)
     tags.each { |tag| html << "<#{tag}>" }
     html

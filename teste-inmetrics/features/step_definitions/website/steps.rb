@@ -66,10 +66,6 @@ Dado(/^que estou na (tela|pagina|página|janela) "([^"]*)" após logar no painel
     
 end
 
-E(/^verifico o conteudo de "([^"]*)"$/) do |arg1|
-    trata_menu
-end
-
 Então(/^clico em sequência (?:no|na|nos) (checkbox|botões|botão|botao) "([^"]*)"$/) do |elemento, nome|
     $automacao.consultar(:elements, elemento, nome).each { |aux| aux.click;sleep 1}
 end
